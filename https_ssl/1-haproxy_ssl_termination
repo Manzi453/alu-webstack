@@ -16,14 +16,17 @@ defaults
     timeout connect 5000
     timeout client 50000
     timeout server 50000
+
 frontend http_front
     bind *:80
     default_backend http_back
+
 frontend www-https
-    bind *:443 ssl crt /etc/haproxy/certs/www.tibyishaka.tech.pem
-    reqadd X-Forwarded-Proto:\ https
-    default_backend web-backend
+    bind *:443 ssl crt /etc/haproxy/certs/www.manzi453.tech.pem
+    http-request add-header X-Forwarded-Proto https
+    default_backend http_back
+
 backend http_back
     balance roundrobin
-    server 6477-web-01 3.85.110.215:80 check
-    server 6477-web-02 34.238.38.171:80 check
+    server 6441-web-01 44.201.238.52:80 check
+    server 6441-web-02 54.157.252.190:80 check
